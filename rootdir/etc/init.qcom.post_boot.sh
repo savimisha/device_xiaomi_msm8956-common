@@ -73,9 +73,9 @@ echo 70 > /sys/module/process_reclaim/parameters/pressure_max
 echo 50 > /sys/module/process_reclaim/parameters/pressure_min
 echo 30 > /sys/module/process_reclaim/parameters/swap_opt_eff
 echo 0 >  /sys/module/lowmemorykiller/parameters/lmk_fast_run
-echo 768 > /sys/module/process_reclaim/parameters/per_swap_size
+echo 512 > /sys/module/process_reclaim/parameters/per_swap_size
 echo 0 > /sys/module/vmpressure/parameters/allocstall_threshold
-echo 45 > /proc/sys/vm/swappiness
+echo 35 > /proc/sys/vm/swappiness
 echo 0 > /proc/sys/vm/page-cluster
 
 minfree_series=`cat /sys/module/lowmemorykiller/parameters/minfree`
@@ -202,6 +202,17 @@ echo 1 > /sys/module/lpm_levels/parameters/lpm_prediction
 # Enable Low power modes
 echo 0 > /sys/module/lpm_levels/parameters/sleep_disabled
 
+# Remove interaction lock when idle
+echo 100 > /sys/devices/virtual/graphics/fb0/idle_time
+
+if [ `cat /sys/devices/soc0/revision` == "1.0" ]; then
+# Disable l2-pc and l2-gdhs low power modes
+    echo N > /sys/module/lpm_levels/system/a53/a53-l2-gdhs/idle_enabled
+    echo N > /sys/module/lpm_levels/system/a72/a72-l2-gdhs/idle_enabled
+    echo N > /sys/module/lpm_levels/system/a53/a53-l2-pc/idle_enabled
+    echo N > /sys/module/lpm_levels/system/a72/a72-l2-pc/idle_enabled
+fi
+
 # Disable L2 GDHS on 8976
 echo N > /sys/module/lpm_levels/system/a53/a53-l2-gdhs/idle_enabled
 echo N > /sys/module/lpm_levels/system/a72/a72-l2-gdhs/idle_enabled
@@ -216,6 +227,9 @@ echo 50000 > /proc/sys/kernel/sched_freq_dec_notify
 
 # Enable timer migration to little cluster
 echo 1 > /proc/sys/kernel/power_aware_timer_migration
+
+# Start energy-awareness for 8952
+start vendor.energy-awareness
 
 #enable sched colocation and colocation inheritance
 echo 130 > /proc/sys/kernel/sched_grp_upmigrate

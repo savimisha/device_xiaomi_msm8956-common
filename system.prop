@@ -13,6 +13,7 @@ vendor.audio.safx.pbe.enabled=true
 persist.audio.dirac.speaker=true
 persist.vendor.audio.fluence.speaker=true
 persist.vendor.audio.fluence.voicecall=true
+persist.vendor.audio.hw.binder.size_kbyte=1024
 
 ro.vendor.qc.sdk.audio.fluencetype=fluence
 ro.vendor.qc.sdk.audio.ssr=false
@@ -21,7 +22,6 @@ vendor.voice.path.for.pcm.voip=true
 vendor.voice.conc.fallbackpath=deep-buffer
 vendor.voice.playback.conc.disabled=true
 vendor.voice.record.conc.disabled=false
-ro.af.client_heap_size_kbyte=7168
 
 # Bluetooth
 bluetooth.hfp.client=1
@@ -42,6 +42,10 @@ ro.build.shutdown_timeout=0
 media.camera.ts.monotonic=1
 persist.camera.HAL3.enabled=1
 persist.vendor.qti.telephony.vt_cam_interface=1
+
+# Core_ctl
+ro.vendor.core_ctl_min_cpu=1
+ro.vendor.core_ctl_max_cpu=2
 
 # AUX Camera app
 vendor.camera.aux.packagelist=org.codeaurora.snapcam,com.android.camera,org.lineageos.snap

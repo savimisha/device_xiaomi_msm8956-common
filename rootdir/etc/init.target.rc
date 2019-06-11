@@ -83,8 +83,7 @@ service vendor.thermal-engine /system/vendor/bin/thermal-engine
 
 on boot
     start vendor.rmt_storage
-    write /proc/sys/kernel/sched_boost 1
-
+   
 service wcnss-service /system/bin/wcnss_service
     class main
     user system
@@ -131,6 +130,7 @@ on charger
     setprop persist.sys.usb.config mass_storage
     start vendor.hvdcp_opti
     start vendor.thermal-engine
+    start vendor.power_off_alarm
 
 service vendor.adsprpcd /system/vendor/bin/adsprpcd
     class main
@@ -158,3 +158,10 @@ on property:init.svc.vendor.per_mgr=running
 
 on property:sys.powerctl=*
     stop vendor.per_proxy
+
+# CPU energy defaults per frequency
+service vendor.energy-awareness /system/vendor/bin/energy-awareness
+    class main
+    user root
+    group system
+    oneshot
