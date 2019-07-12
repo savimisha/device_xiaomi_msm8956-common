@@ -125,7 +125,6 @@ ifeq ($(HOST_OS),linux)
     endif
   endif
 endif
-PRODUCT_DEXPREOPT_SPEED_APPS += SystemUI
 
 # Display
 BOARD_USES_ADRENO := true
@@ -212,7 +211,6 @@ BOARD_USES_QCOM_HARDWARE := true
 # Recovery
 TARGET_RECOVERY_FSTAB := $(VENDOR_PATH)/rootdir/etc/fstab.qcom
 TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USES_MKE2FS := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 # RIL
